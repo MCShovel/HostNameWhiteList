@@ -87,6 +87,12 @@ public class BungeeHostNameWhiteList extends Plugin implements Listener {
             return blockLegacy;
         } else {
             String hostname = ignoreCase ? address.getHostName().toLowerCase() : address.getHostName();
+			String[] parts = hostname.split("\\.");
+			if (parts[0].matches("\\d")) {
+				parts[0] = parts[0].replaceAll("\\d+", "");
+			}
+			hostname = String.join(".", parts);
+
             return !validHostNames.contains(hostname);
         }
     }
